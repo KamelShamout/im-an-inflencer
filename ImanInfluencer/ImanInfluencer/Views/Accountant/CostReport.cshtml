@@ -1,0 +1,175 @@
+﻿@model IEnumerable<ImanInfluencer.Models.User1>
+@{
+    ViewData["Title"] = "CostReport";
+    Layout = "~/Views/Shared/_AccountantLayout.cshtml";
+    var sum = 0.0;
+    var allsalary = 0.0;
+    var alldeduction = 0.0;
+    var profits = ViewBag.profits == null ? 0 : ViewBag.profits;
+    var total = 0.0;
+}
+   
+}
+
+
+
+
+
+
+<div class="row">
+    <h3>Products Excel reports</h3>
+    <div class="col-5">
+        <form method="post" asp-action="EmpMonthReport">
+            <div class="input-group">
+                <label class="form-label">Select a month : </label>
+                <select name="month" class="form-select" aria-label="Default select example">
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    <option value="4">Four</option>
+                    <option value="5">Five</option>
+                    <option value="6">six</option>
+                    <option value="7">seven</option>
+                    <option value="8">eight</option>
+                    <option value="9">nine</option>
+                    <option value="10">ten</option>
+                    <option value="11">eleven</option>
+                    <option value="12">twelve</option>
+
+                </select>
+                <input type="submit" value="export to excel" class="btn btn-primary" />
+
+            </div>
+        </form>
+    </div>
+    <div class="col-5">
+        <form method="post" asp-action="EmpAnnualReport">
+            <div class="form-group">
+                <label class="form-label"> Annual report</label>
+                <input type="submit" value="export to excel" class="btn btn-primary" />
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="d-md-flex mb-3">
+            <h3 class="box-title mb-0">Employees report</h3>
+
+        </div>
+        <div class="white-box">
+
+            <div class="table-responsive">
+                <table class="table no-wrap">
+                    <thead>
+                        <tr>
+                            <th class="border-top-0">#</th>
+                            <th class="border-top-0">Name</th>
+                            <th class="border-top-0">Postion</th>
+                            <th class="border-top-0">Salary</th>
+                            <th class="border-top-0">Deduction</th>
+                            <th class="border-top-0">Hiring date</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            alldeduction = alldeduction + sum;
+
+                            sum = 0.0;
+                            allsalary = allsalary + (double)item.Salary;
+                            <tr>
+                                <td class="count">
+                                </td>
+                                <td class="txt-oflo">@item.Fname @item.Lname</td>
+                                <td class="txt-oflo">@item.Jobtitle</td>
+                                <td class="txt-oflo">@item.Salary</td>
+                                <td class="txt-oflo deduction">
+                                    @foreach (var item2 in item.Deductions)
+                                    {
+                                        if (item2 == null)
+                                        {
+                                            sum = 0.0;
+                                            break;
+                                        }
+                                        sum = sum + (double)item2.Amount;
+                                    }
+                                    @sum
+                                </td>
+                                <td class="txt-oflo date">@item.Dateofreg</td>
+
+                            </tr>
+
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="d-md-flex mb-3">
+            <h3 class="box-title mb-0">Statistics</h3>
+
+        </div>
+        <div class="white-box">
+
+            <div class="table-responsive">
+                <table class="table no-wrap">
+                    <thead>
+                        <tr>
+                            <th class="border-top-0">Total salary</th>
+                            <th class="border-top-0">total Deduction</th>
+                            <th class="border-top-0">products profits</th>
+                            <th class="border-top-0">total profit/loss</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            @{total =   (alldeduction + (double)profits) - allsalary; }
+
+                            <td class="txt-oflo">@allsalary</td>
+                            <td class="txt-oflo">@alldeduction</td>
+                            <td class="txt-oflo">@profits</td>
+                            <td class="txt-oflo">
+                                @total
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var count = document.getElementsByClassName("count");
+    for (var i = 1; i < count.length + 1; i++) {
+        count[i - 1].innerHTML = i;
+    }
+    var date = document.getElementsByClassName("date");
+    for (var i = 0; i < date.length; i++) {
+        const myArray = date[i].innerHTML.split(" ");
+        date[i].innerHTML = myArray[0];
+    }
+</script>

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ImanInfluencer.Models.User1>
+@{
+    ViewData["Title"] = "CustomerInfo";
+    Layout = "~/Views/Shared/_AccountantLayout.cshtml";
+}
+
+
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 mt-5 ">
+            <div class="card">
+                <div class="card-body">
+                    <img src="~/Images/@item.Imagepath" alt="Alternate Text" style="width: 40%;height: 40%; border-radius: 50%" />
+                    <h1 class="h2">Name</h1>
+                    <p class="h3 py-2">@item.Fname @item.Lname</p>
+                    <h1 class="h2">User name</h1>
+                    <p class="h3 py-2">@item.Userlogin1s.FirstOrDefault().Username</p>
+                    <h1 class="h2">Email</h1>
+                    <p class="h3 py-2">@item.Email</p>
+                    <h1 class="h2">Salary</h1>
+                    <p class="h3 py-2">@item.Salary</p>
+
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+

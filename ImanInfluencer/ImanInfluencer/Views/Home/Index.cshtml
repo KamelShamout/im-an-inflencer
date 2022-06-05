@@ -1,0 +1,171 @@
+﻿@model Tuple<IEnumerable<ImanInfluencer.Models.Category1>, IEnumerable<ImanInfluencer.Models.Testimonial>>
+<!-- Slider -->
+<section class="section-slide">
+    <div class="wrap-slick1">
+        <div class="slick1">
+            <div class="item-slick1">
+                <img src="~/Images/slide-01.jpg" alt="Alternate Text" style="position:absolute;z-index:-1;width:100%;" />
+                <div class="container h-full">
+                    <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
+                        <div class="layer-slick1 animated visible-false" data-appear="rollIn" data-delay="0">
+                            <span class="ltext-101 cl2 respon2">
+                                Clothes New-Season
+                            </span>
+                        </div>
+
+                        <div class="layer-slick1 animated visible-false" data-appear="lightSpeedIn" data-delay="800">
+                            <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
+                                Jackets & Coats
+                            </h2>
+                        </div>
+
+                        <div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-slick1">
+                <img src="~/Images/slide-02.jpg" alt="Alternate Text" style="position:absolute;z-index:-1;width:100%;" />
+
+                <div class="container h-full">
+                    <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
+                        <div class="layer-slick1 animated visible-false" data-appear="rotateInDownLeft" data-delay="0">
+                            <span class="ltext-101 cl2 respon2">
+                                New Collection
+                            </span>
+                        </div>
+
+                        <div class="layer-slick1 animated visible-false" data-appear="rotateInUpRight" data-delay="800">
+                            <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
+                                New arrivals
+                            </h2>
+                        </div>
+
+                        <div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item-slick1">
+                <img src="~/Images/slide-03.jpg" alt="Alternate Text" style="position:absolute;z-index:-1; width:100%;" />
+
+                <div class="container h-full">
+                    <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
+                        <div class="layer-slick1 animated visible-false" data-appear="rotateInDownLeft" data-delay="0">
+                            <span class="ltext-101 cl2 respon2">
+                                New Makeup Collection
+                            </span>
+                        </div>
+
+                        <div class="layer-slick1 animated visible-false" data-appear="rotateInUpRight" data-delay="800">
+                            <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
+                                You can sell and Buy Products
+                            </h2>
+                        </div>
+
+                        <div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- Banner -->
+<div class="sec-banner bg0 p-t-80 p-b-50" style="margin-bottom:100px;">
+    <div class="container">
+        <div class="row">
+            @{ var count = 0;}
+            @foreach (var item in Model.Item1)
+            {
+                count++; if (count == 4) break;
+                <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+
+                    <div class="block1 wrap-pic-w">
+                        <img src="~/Images/@item.Imagepath" alt="IMG-BANNER">
+
+                        <a asp-action="Shop" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                            <div class="block1-txt-child1 flex-col-l">
+                                <span class="block1-name ltext-102 trans-04 p-b-8">
+                                    @Html.DisplayFor(modelItem => item.Categoryname)
+                                </span>
+
+                                <span class="block1-info stext-102 trans-04">
+                                    New Collection
+                                </span>
+                            </div>
+
+                            <div class="block1-txt-child2 p-b-4 trans-05">
+
+                            </div>
+
+                            <div class="block1-txt-child2 p-b-4 trans-05">
+                                <div  class="block1-link stext-101 cl0 trans-09">
+                                    Shop Now
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- End Categories of The Month -->
+<!--start of testimonial-->
+<section class="home-testimonial" style="margin-bottom: 70px;">
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center testimonial-pos">
+            <div class="col-md-12 pt-4 d-flex justify-content-center">
+                <h3>Testimonials</h3>
+            </div>
+            <div class="col-md-12 d-flex justify-content-center">
+                <h2>Explore the Customers experience</h2>
+            </div>
+        </div>
+        <section class="home-testimonial-bottom">
+            <div class="row d-flex justify-content-center">
+
+                @foreach (var item in Model.Item2)
+                {
+                    <div class="col-md-3 style-3">
+                        <div class="tour-item ">
+                            <div class="tour-desc bg-white">
+                                <div class="tour-text color-grey-3 text-center">@item.User.Fname</div>
+                                <div class="d-flex justify-content-center pt-2 pb-2"><img class="tm-people" src="~/Images/@item.User.Imagepath" alt=""></div>
+                                <div class="link-name d-flex justify-content-center">
+                                @item.Description</div>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+
+            </div>
+        </section>
+    </div>
+</section>
+
+
+
+
+
+<script>
+    document.getElementsByTagName("header")[0].classList.remove("header-v2");
+</script>

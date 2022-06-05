@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ImanInfluencer.Models.Testimonial>
+@{
+    ViewData["Title"] = "Testimonial";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 mt-5 ">
+            <div class="card">
+                <div class="card-body">
+                    <img src="~/Images/@item.User.Imagepath" alt="Alternate Text" style="width: 40%;height: 40%; border-radius: 50%" />
+                    <h1 class="h2">Name</h1>
+                    <p class="h3 py-2">@item.User.Fname @item.User.Lname</p>
+                    <h1 class="h2">Testimonial</h1>
+                    <h3 class="h2">status</h3>
+                    @if(item.status == 0)
+                    {
+                        <h6>Disabled</h6>
+                    }
+                    @if(item.status == 1)
+                    {
+                        <h6>Enabled</h6>
+                    }
+                    <p class="h3 py-2">@item.Description</p>
+                    <form asp-action="Delete" class="mb-3">
+                        <input id="id" name="id" type="number" value="@item.Id" hidden />
+                        <button type="submit" value="Delete" class="btn btn-danger">Disable</button>
+
+                    </form>
+                    <form asp-action="Accept" class="mb-3">
+                        <input id="id" name="id" type="number" value="@item.Id" hidden />
+                        <button type="submit" value="Delete" class="btn btn-success">Enable</button>
+                        </form>
+
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+
+
+
+
+
+

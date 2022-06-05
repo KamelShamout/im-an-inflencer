@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ImanInfluencer.Models.Transaction>
+@{
+    ViewData["Title"] = "BuyingRequest";
+    Layout = "~/Views/Shared/_UserDashboardLayout.cshtml";
+   
+}
+
+
+
+<div class="container py-5">
+    <div class="row">
+
+        <div class="col-lg-9">
+            <div class="row">
+            </div>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                   
+                        <div class="col-md-3">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src="~/Images/@item.Product.Images.FirstOrDefault().Imagepath">
+                                    
+                                </div>
+                                <div class="card-body">
+                                    <a asp-controller="Client" asp-action="ViewItem" asp-route-id="@item.Id" class="h3 text-decoration-none">@item.Product.Name</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li class="pt-2">
+                                            <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                        </li>
+                                    </ul>
+
+                                    <p class="text-center mb-0 "><span class="price">@item.Product.Price</span></p>
+                                    <h6>Payment Method:</h6>
+                                    <p>@item.Payment.Cardname</p>
+                                    <form asp-action="Delete">
+                                        <input id="id" name="id" type="number" value="@item.Id" hidden/>
+                                        <button type="submit" value="Delete" class="btn btn-danger">Delete</button>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

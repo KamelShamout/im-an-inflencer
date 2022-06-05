@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\kamel\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\kamel\\.nuget\\packages"
+    ]
+  }
+}

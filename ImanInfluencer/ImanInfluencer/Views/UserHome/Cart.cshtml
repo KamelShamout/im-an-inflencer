@@ -1,0 +1,100 @@
+﻿@model IEnumerable<ImanInfluencer.Models.Cartproduct>
+
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+
+<div class="bg0 p-t-75 p-b-85" style=" margin-top: 60px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+                <div class="m-l-25 m-r--38 m-lr-0-xl">
+                    <div class="wrap-table-shopping-cart">
+                        <table class="table-shopping-cart">
+                            <tr class="table_head">
+                                <th class="column-1">Product</th>
+                                <th class="column-2"></th>
+                                <th class="column-3">Price</th>
+                                <th class="column-4"></th>
+
+
+
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr class="table_row">
+                                    <td class="column-1">
+                                        <div onclick='remove("@item.Id")' class="how-itemcart1">
+                                            <img src="~/Images/@item.Product.Images.FirstOrDefault().Imagepath" alt="IMG">
+                                        </div>
+                                    </td>
+                                    <td class="column-2">@item.Product.Name</td>
+                                    <td class="column-3">$ <span class="price">@item.Product.Price +20%tax</span></td>
+                                    <td class="column-4" style="text-align:center">
+                                        <a asp-action="ProductDetail" asp-route-id="@item.Productid" class="btn btn-primary"  role="button">View</a>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+                <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+
+
+                    <div class="flex-w flex-t p-t-27 p-b-33">
+                        <div class="size-208">
+                            <span class="mtext-101 cl2">
+                                Total cost:
+                            </span>
+                        </div>
+
+                        <div class="size-209 p-t-1">
+                            <span class="mtext-110 cl2">
+                                $<span class="total">79.65</span>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    var price = document.getElementsByClassName("price");
+    var sum = 0.0;
+    for (var i = 0; i < price.length; i++) {
+        sum += (parseFloat(price[i].innerHTML));
+    }
+    document.getElementsByClassName("total")[0].innerHTML = sum;
+    function remove(parm) {
+       $.ajax({
+            type: "POST",
+             url: '@Url.Action("Delete")',
+             data: { id: parm },
+            dataType: "json",
+             success: function (msg) {
+                 window.location.href = "/UserHome/cart";
+
+             },
+             error: function (req, status, error) {
+                 console.log(req);
+                 console.log(status);
+                 console.log(error);
+
+
+             }
+         });
+    }
+</script>

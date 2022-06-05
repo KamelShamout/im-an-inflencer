@@ -1,0 +1,296 @@
+﻿@model Tuple<IEnumerable<ImanInfluencer.Models.Category1>, IEnumerable<ImanInfluencer.Models.Product1>>
+
+@{
+    ViewData["Title"] = "Shop";
+}
+
+
+
+
+
+
+<!-- Product -->
+<div class="bg0 m-t-23 p-b-140">
+    <div class="container">
+        <div class="flex-w flex-sb-m p-b-52">
+            <div class="flex-w flex-l-m filter-tope-group m-tb-10">
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+                    All Products
+                </button>
+                @foreach (var item in Model.Item1)
+                {
+                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".@item.Categoryname">
+                        @item.Categoryname
+                    </button>
+                }
+
+
+
+            </div>
+
+            <div class="flex-w flex-c-m m-tb-10">
+                <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
+                    <i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
+                    <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+                    Search
+                </div>
+                <form asp-action="Shop">
+                    <div  class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4">
+                        <button type="submit">
+                            <i class="ui-icon-arrow-1-e cl2 m-r-6 fs-15 trans-04 zmdi zmdi-arrow-back"></i>
+                            
+                            Undo
+                        </button>
+                        
+                    </div>
+                </form>
+                
+            </div>
+            <!-- Filter -->
+            <div class="dis-none panel-filter w-full p-t-10">
+                <div style=" background-color: azure; padding: 10px">
+                   
+                    <form asp-action="Shop">
+                        <div class="dis-none panel-search w-full p-t-10 p-b-15" style="display: block;">
+                            <div class="bor8 dis-flex p-l-15">
+                                <button type="submit" class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+                                    <i class="zmdi zmdi-search"></i>
+                                </button>
+
+                                <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="productname" id="productname" placeholder="Search">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Categories</label>
+                            <select name="categoryname" id="categoryname" class="form-select mtext-107 cl2 size-114 plh2 p-r-15" aria-label="Default select example">
+                                @foreach (var item in ViewBag.Categoryid)
+                                {
+                                    <option value="@item">@item</option>
+
+                                }
+
+                            </select>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+        <div class="row isotope-grid">
+
+            @foreach (var item in Model.Item2)
+            {
+
+                <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item @item.Category.Categoryname">
+                    <!-- Block2 -->
+                    <div class="block2">
+                        <div class="block2-pic hov-img0">
+                            <img src="~/Images/@item.Images.FirstOrDefault().Imagepath" alt="IMG-PRODUCT">
+
+                            <a onclick='play("@item.Id")' href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                                Quick View
+                            </a>
+                        </div>
+
+                        <div class="block2-txt flex-w flex-t p-t-14">
+                            <div class="block2-txt-child1 flex-col-l ">
+                                <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                    @item.Name
+                                </a>
+
+                                <span class="stext-105 cl3">
+                                    $@item.Price +%20tax
+                                </span>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+
+
+
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!-- Modal1 -->
+<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
+    <div class="overlay-modal1 js-hide-modal1"></div>
+
+    <div class="container">
+        <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+            <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+                <img src="~/asset/images/icons/icon-close.png" alt="CLOSE">
+            </button>
+
+            <div class="row">
+                <div class="col-md-6 col-lg-7 p-b-30">
+                    <div class="p-l-25 p-r-30 p-lr-0-lg">
+                        <div class="wrap-slick3 flex-sb flex-w">
+                            <div class="wrap-slick3-dots"></div>
+                            <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+                            <div class="slick3 gallery-lb">
+                               
+
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-5 p-b-30">
+                    <div class="p-r-50 p-t-5 p-lr-0-lg">
+                        <h4 id="cartname" class="mtext-105 cl2 js-name-detail p-b-14">
+                        </h4>
+
+                        <span class="mtext-106 cl2">
+                            $<span id="cartprice"></span>
+                        </span>
+
+                        <p id="desc" class="stext-102 cl3 p-t-23">
+                            
+                        </p>
+
+                        <!--  -->
+                        <div class="p-t-33">
+                           
+                            <div class="flex-w flex-r-m p-b-10">
+                                <div class="size-204 flex-w flex-m respon6-next">
+                                    
+
+                                    <a asp-controller="User" asp-action="Create" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                        Register
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--  -->
+                        <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+                            <div class="flex-m bor9 p-r-10 m-r-11">
+                                <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+                                    <i class="zmdi zmdi-favorite"></i>
+                                </a>
+                            </div>
+
+                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+
+                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+
+                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+                                <i class="fa fa-google-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function play(parm) {
+        var cartname = document.getElementById("cartname");
+        var cartprice = document.getElementById("cartprice");
+        var cartdesc = document.getElementById("desc");
+        var photos = document.getElementsByClassName("gallery-lb")[0];
+        photos.innerHTML = " ";
+        var num = parseInt(parm);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ProductImages")',
+            data: { id: num},
+            dataType: "json",
+            success: function (msg) {
+
+                var res = msg.images.map(function (elem) {
+                    return elem.imagepath;
+                })
+                let r = $('.slick3-dots')[0];
+                r.innerHTML = " ";
+                cartname.innerHTML = msg.name;
+                cartprice.innerHTML = msg.price;
+                cartdesc.innerHTML = msg.description;
+                for (var item in res) {
+                    console.log(res[item]);
+                    var temp = res[item];
+                    photos.innerHTML += `<div class="item-slick3 slick-slide" data-thumb="" >
+                                        <div class="wrap-pic-w pos-relative">
+                                            <img class = "cartp" src="" alt="IMG - PRODUCT">
+
+                                            <a class="carturl flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="">
+                                                <i class="fa fa-expand"></i>
+                                            </a>
+                                        </div>
+                                    </div>`;
+
+                    r.innerHTML +=`<li class="presentation" role="presentation"><img class="cartitem" src=""><div class="slick3-dot-overlay"></div></li>`;
+                }
+
+
+
+
+                let productphoto = $('.cartp');
+                let fullscreen = $('.carturl');
+                let smallpicture  = $('.cartitem');
+                let slider = $('.item-slick3');
+                let mainphoto = $('.slick3-dot-overlay');
+
+
+
+                for (var item in res) {
+                    console.log(res[item]);
+                    var temp = res[item];
+                    $(productphoto[item]).attr('src', '/Images/' + temp);
+                    $(fullscreen[item]).attr('href', '/Images/' + temp);
+                    $(smallpicture [item]).attr('src', '/Images/' + temp);
+                    $(mainphoto[item]).attr('onclick', 'done(' + "\"" + temp + "\"" +')');
+
+                    $(slider[item]).attr('data-thumb', '/Images/' + temp);
+                    if (item > 0) {
+                        $(slider[item]).css('display', 'none');
+
+                    }
+                }
+
+
+            },
+            error: function (req, status, error) {
+                console.log(req);
+                console.log(status);
+                console.log(error);
+
+
+            }
+        });
+    }
+
+    function done(msg) {
+        let b = $('.cartp')[0];
+        $(b).attr('src', '/Images/' + msg);
+
+        console.log(msg);
+    }
+</script>

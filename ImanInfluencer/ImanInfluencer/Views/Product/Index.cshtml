@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ImanInfluencer.Models.Product1>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserDashboardLayout.cshtml";
+}
+
+
+
+
+
+<form  asp-action="Testimonial">
+
+    <div class="form-group">
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">write Your opinion</label>
+            <textarea class="form-control" id="description" name="description" rows="5"></textarea>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+<div class="container py-5">
+    <div class="row">
+
+        <div class="col-lg-9">
+            <div class="row">
+            </div>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+
+                    <div class="col-md-3">
+                        <div class="card mb-4 product-wap rounded-0">
+                            <div class="card rounded-0">
+                                <img class="card-img rounded-0 img-fluid" src="~/Images/@item.Images.FirstOrDefault().Imagepath">
+
+                            </div>
+                            <div class="card-body">
+                                <a href="#" class="h3 text-decoration-none">@item.Name</a>
+                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                    <li class="pt-2">
+                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                    </li>
+                                </ul>
+                                <p class="text-center mb-0 "><span class="price">@item.Price</span></p>
+
+
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+

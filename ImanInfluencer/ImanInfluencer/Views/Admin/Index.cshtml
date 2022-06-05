@@ -1,0 +1,288 @@
+﻿@model Tuple<IEnumerable<ImanInfluencer.Models.Userlogin1>, IEnumerable<ImanInfluencer.Models.Transaction>, IEnumerable<ImanInfluencer.Models.Product1>>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<div class="row justify-content-center">
+    <div class="col-lg-4 col-md-12">
+        <div class="white-box analytics-info">
+            <h3 class="box-title">Total Customers</h3>
+            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                <li>
+                    <div id="sparklinedash">
+                        <canvas width="67" height="30"
+                                style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                    </div>
+                </li>
+                <li class="ms-auto"><span class="counter text-success">@ViewBag.countofusers</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+        <div class="white-box analytics-info">
+            <h3 class="box-title">Total Employees</h3>
+            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                <li>
+                    <div id="sparklinedash2">
+                        <canvas width="67" height="30"
+                                style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                    </div>
+                </li>
+                <li class="ms-auto"><span class="counter text-purple">@ViewBag.countofemployees</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+        <div class="white-box analytics-info">
+            <h3 class="box-title">Total products</h3>
+            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                <li>
+                    <div id="sparklinedash3">
+                        <canvas width="67" height="30"
+                                style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                    </div>
+                </li>
+                <li class="ms-auto">
+                    <span class="counter text-info">@ViewBag.countofproducts</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <h3>Products Excel reports</h3>
+    <div class="col-5">
+        <form method="post" asp-action="ProductsMonthReport">
+            <div class="input-group">
+                <label class="form-label">Select a month : </label>
+                <select name="month" class="form-select" aria-label="Default select example">
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    <option value="4">Four</option>
+                    <option value="5">Five</option>
+                    <option value="6">six</option>
+                    <option value="7">seven</option>
+                    <option value="8">eight</option>
+                    <option value="9">nine</option>
+                    <option value="10">ten</option>
+                    <option value="11">eleven</option>
+                    <option value="12">twelve</option>
+
+                </select>
+                <input type="submit" value="export to excel" class="btn btn-primary" />
+
+            </div>
+        </form>
+    </div>
+    <div class="col-5">
+        <form method="post" asp-action="ProductsAnnualReport">
+            <div class="form-group">
+                <label class="form-label"> Annual report</label>
+                <input type="submit" value="export to excel" class="btn btn-primary" />
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- ============================================================== -->
+<!-- PRODUCTS YEARLY SALES -->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        <div class="white-box">
+            <h3 class="box-title">Products Yearly Sales</h3>
+            
+            <div id="ct-visits" style="height: 405px;">
+                <div class="chartist-tooltip" style="top: -17px; left: -12px;">
+                    <span class="chartist-tooltip-value">6</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- ============================================================== -->
+<!-- RECENT SALES -->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="d-md-flex mb-3">
+            <h3 class="box-title mb-0">Recent sales</h3>
+
+        </div>
+        <div class="white-box">
+
+            <div class="table-responsive">
+                <table class="table no-wrap">
+                    <thead>
+                        <tr>
+                            <th class="border-top-0">#</th>
+                            <th class="border-top-0">Name</th>
+                            <th class="border-top-0">Status</th>
+                            <th class="border-top-0">Date</th>
+                            <th class="border-top-0">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Item2)
+                        {
+                            <tr>
+                                <td class="count">
+                                </td>
+                                <td class="txt-oflo">@item.Product.Name</td>
+                                @if (@item.Status == 1)
+                                {
+                                    <td>SOLD</td>
+                                    <td class="txt-oflo date">@item.Actiondate</td>
+
+                                }
+                                else
+                                {
+                                    <td>PROCCESS</td>
+                                    <td>PROCCESS</td>
+                                }
+                                <td><span class="text-success">$@item.Product.Price</span></td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- ============================================================== -->
+<!-- Recent Comments -->
+<!-- ============================================================== -->
+<div class="row">
+    <!-- .col -->
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="card white-box p-0">
+            <div class="card-body">
+                <h3 class="box-title mb-0">Recent Users</h3>
+            </div>
+            <div class="comment-widgets">
+                @foreach (var item in Model.Item1.Where(x => x.Roleid == 1))
+                {
+                    <!-- Comment Row -->
+                    <div class="d-flex flex-row comment-row p-3 mt-0">
+                        <div class="p-2"><img src="~/Images/@item.User.Imagepath" alt="user" width="50" class="rounded-circle"></div>
+                        <div class="comment-text ps-2 ps-md-3 w-100">
+                            <h5 class="font-medium">@item.Username</h5>
+                            <span class="mb-3 d-block">@item.User.Email</span>
+                            <div class="comment-footer d-md-flex align-items-center">
+
+
+                                <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">@item.User.Dateofreg</div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<!-- ============================================================== -->
+<!-- Recent Comments -->
+<!-- ============================================================== -->
+<div class="row">
+    <!-- .col -->
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="card white-box p-0">
+            <div class="card-body">
+                <h3 class="box-title mb-0">Employees</h3>
+
+            </div>
+            <div class="comment-widgets">
+                @foreach (var item in Model.Item1.Where(x => x.Roleid == 3 || x.Roleid == 4))
+                {
+                    <!-- Comment Row -->
+                    <div class="d-flex flex-row comment-row p-3 mt-0">
+                        <div class="p-2"><img src="~/Images/@item.User.Imagepath" alt="user" width="50" class="rounded-circle"></div>
+                        <div class="comment-text ps-2 ps-md-3 w-100">
+                            <h5 class="font-medium">@item.Username/@item.User.Jobtitle</h5>
+                            <span class="mb-3 d-block">@item.User.Email</span>
+                            <a asp-controller="User" asp-action="Edit" asp-route-id="@item.User.Id">Edit</a> |
+                            <a asp-controller="User" asp-action="Details" asp-route-id="@item.User.Id">Details</a> |
+                            <a asp-controller="User" asp-action="Delete" asp-route-id="@item.User.Id">Delete</a>
+                            <div class="comment-footer d-md-flex align-items-center">
+
+
+                                <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">@item.User.Dateofreg</div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@foreach (var item in Model.Item3)
+{
+    <span hidden class="chartdate @item.Dateofup">@item.Dateofup</span>
+}
+
+
+
+
+<script src="~/asset/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="~/asset/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+
+<script>
+    var count = document.getElementsByClassName("count");
+    for (var i = 1; i < count.length + 1; i++) {
+        count[i - 1].innerHTML = i;
+    }
+    var date = document.getElementsByClassName("date");
+    for (var i = 0; i < date.length; i++) {
+        const myArray = date[i].innerHTML.split(" ");
+        date[i].innerHTML = myArray[0];
+    }
+</script>
+
+
+
+
+
+

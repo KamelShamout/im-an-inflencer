@@ -1,0 +1,73 @@
+﻿@model IEnumerable<ImanInfluencer.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container py-5">
+    <div class="row">
+
+        <div class="col-lg-9">
+            <div class="row">
+                <form asp-action="Products" method="get">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label"> Date from</label>
+                        <input type="date" class="form-control" id="datefrom" name="datefrom" />
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label"> Date to</label>
+                        <input type="date" class="form-control" id="dateto" name="dateto"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Search" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+
+                    <div class="col-md-3">
+                        <div class="card mb-4 product-wap rounded-0">
+                            <div class="card rounded-0">
+                                <img class="card-img rounded-0 img-fluid" src="~/Images/@item.Product.Images.FirstOrDefault().Imagepath">
+
+                            </div>
+                            <div class="card-body">
+                                <a href="#" class="h3 text-decoration-none">@item.Product.Name</a>
+                                <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                    <li class="pt-2">
+                                        <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                        <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                        <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                        <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                        <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                    </li>
+                                </ul>
+
+                                <h6 class="text-center mb-0 ">price : @item.Product.Price $</h6>
+                                <h6 class="text-center mb-0 ">date of sold : <span class="date">@item.Actiondate</span></h6>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    var date = document.getElementsByClassName("date");
+    for (var i = 0; i < date.length; i++) {
+        const myArray = date[i].innerHTML.split(" ");
+        date[i].innerHTML = myArray[0];
+    }
+</script>
